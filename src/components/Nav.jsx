@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../assets/logo.png";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
+import Logo from "./Logo";
 
 const Nav = () => {
   const links = (
@@ -40,14 +41,16 @@ const Nav = () => {
             </ul>
           </div>
           <div className="">
-            <img src={logo} alt="" className="h-9" />
+            <Logo isDark={false}></Logo>
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn btn-primary ">Button</a>
+          <Link to={"/login"} className="btn btn-primary ">
+            Log In
+          </Link>
         </div>
       </div>
     </div>

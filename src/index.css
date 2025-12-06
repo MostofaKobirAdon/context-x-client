@@ -17,3 +17,7 @@
 .subtext {
   @apply text-gray-500 font-medium;
 }
+
+.section-heading {
+  @apply text-4xl font-semibold text-secondary;
+}
