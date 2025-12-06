@@ -2,8 +2,50 @@ import React from "react";
 import { Link } from "react-router";
 import GoogleLogin from "../../components/Auth/GoogleLogin";
 import img from "../../assets/Signup.gif";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 const Register = () => {
+  const { register, reset, handleSubmit } = useForm();
+  const { createUser, updateUser } = useAuth();
+
+  const handleRegister = (data) => {
+    console.log(data);
+    const { email, password, name, photoURL } = data;
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        updateUser({ displayName: name, photoURL: photoURL })
+          .then((res) => {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Account created successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          })
+          .catch((err) => {
+            Swal.fire({
+              position: "cenetr",
+              icon: "error",
+              title: `${err.message}`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          });
+      })
+      .catch((err) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: `${err.message}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
+  };
   return (
     <div className="flex items-center">
       <div className="card-body  w-1/2">
@@ -12,19 +54,31 @@ const Register = () => {
             Create an <span className="text-primary font-bold">Account</span>
           </h1>
           <p className="subtext mb-1">Register to contestX</p>
-          <form className="fieldset  ">
+          <form onSubmit={handleSubmit(handleRegister)} className="fieldset  ">
             <label className="label">Name</label>
-            <input type="text" className="input w-full" placeholder="Name" />
+            <input
+              {...register("name")}
+              type="text"
+              className="input w-full"
+              placeholder="Name"
+            />
             <label className="label">Email</label>
-            <input type="email" className="input w-full" placeholder="Email" />
+            <input
+              {...register("email")}
+              type="email"
+              className="input w-full"
+              placeholder="Email"
+            />
             <label className="label">Photo URL</label>
             <input
+              {...register("photoURL")}
               type="text"
               className="input w-full"
               placeholder="Photo URL"
             />
             <label className="label">Password</label>
             <input
+              {...register("password")}
               type="password"
               className="input w-full"
               placeholder="Password"
