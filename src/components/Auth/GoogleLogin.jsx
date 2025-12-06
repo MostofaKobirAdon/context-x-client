@@ -30,7 +30,7 @@ const GoogleLogin = ({ operation }) => {
           ></path>
         </g>
       </svg>
-      Login with Google
+      {operation} with Google
     </button>
   );
 };
