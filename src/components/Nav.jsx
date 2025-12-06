@@ -3,9 +3,10 @@ import logo from "../assets/logo.png";
 import { Link, NavLink } from "react-router";
 import Logo from "./Logo";
 import useAuth from "../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Nav = () => {
-  const { user } = useAuth();
+  const { user, logOut } = useAuth();
   const links = (
     <>
       <li className="">
@@ -13,8 +14,29 @@ const Nav = () => {
       </li>
     </>
   );
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        Swal.fire({
+          position: "ceneter",
+          icon: "success",
+          title: `Logged out successfully`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((err) => {
+        Swal.fire({
+          position: "ceneter",
+          icon: "error",
+          title: `${err.message}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
+  };
   return (
-    <div className="fixed left-0 shadow-sm bg-gray-100/100 right-0 top-0 z-10">
+    <div className="fixed left-0 shadow-sm bg-gray-100/50 right-0 top-0 z-10">
       <div className="navbar w-11/12 mx-auto  bg-transparent ">
         <div className="navbar-start">
           <div className="dropdown">
@@ -65,14 +87,23 @@ const Nav = () => {
                   className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
                 >
                   <h1 className="text-xl font-semibold">{user?.displayName}</h1>
-                  <button className="btn btn-primary btn-sm mt-2">
+                  <Link
+                    to={"/dashboard"}
+                    className="btn  btn-primary btn-sm mt-2"
+                  >
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={handleLogOut}
+                    className="btn btn-outline btn-primary btn-sm mt-2"
+                  >
                     Log out
                   </button>
                 </div>
               </div>
             </>
           ) : (
-            <Link to={"/login"} className="btn btn-primary ">
+            <Link to={"/auth/login"} className="btn btn-primary ">
               Log In
             </Link>
           )}
