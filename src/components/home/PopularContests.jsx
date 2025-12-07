@@ -14,7 +14,7 @@ const PopularContests = () => {
       </div>
       <div className="card-grid">
         {[1, 2, 3, 4, 5, 6].map((num) => (
-          <ContestCard></ContestCard>
+          <ContestCard key={num}></ContestCard>
         ))}
       </div>
       <div className="w-full text-center mt-5">
