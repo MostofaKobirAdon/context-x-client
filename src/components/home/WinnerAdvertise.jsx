@@ -90,7 +90,7 @@ const WinnerAdvertise = () => {
           See our winners, what they say and their prize
         </p>
       </div>
-      <div className="w-full px-4 mt-5 relative">
+      <div className="w-full px-4  relative">
         {/* <div className="bg-linear-to-l  from-white/50 via-white/5  via-transparent  via-white/5 to-white/50  absolute top-0 bottom-0 left-0 right-0 z-10"></div> */}
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}

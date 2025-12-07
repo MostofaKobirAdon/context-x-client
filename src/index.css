@@ -15,9 +15,15 @@
 }
 
 .subtext {
-  @apply text-gray-500 font-medium;
+  @apply text-gray-500 font-medium mb-5;
 }
 
 .section-heading {
   @apply text-4xl font-semibold text-secondary;
+}
+.active {
+  @apply bg-primary text-white;
+}
+.card-grid {
+  @apply grid grid-cols-3 gap-6;
 }
