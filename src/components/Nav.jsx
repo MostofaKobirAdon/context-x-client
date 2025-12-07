@@ -79,16 +79,16 @@ const Nav = () => {
                   <img
                     src={user?.photoURL}
                     alt=""
-                    className="w-11 h-11 border-2 rounded-full object-cover overflow-hidden"
+                    className="w-11 h-11 border-2 border-primary rounded-full object-cover overflow-hidden"
                   />
                 </div>
                 <div
                   tabIndex="-1"
-                  className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+                  className="dropdown-content menu bg-base-100 rounded-box z-1 w-60 p-2 shadow-sm"
                 >
                   <h1 className="text-xl font-semibold">{user?.displayName}</h1>
                   <Link
-                    to={"/dashboard"}
+                    to={"/dashboard/my-profile"}
                     className="btn  btn-primary btn-sm mt-2"
                   >
                     Dashboard

@@ -4,9 +4,9 @@ import useAuth from "../../hooks/useAuth";
 const MyProfile = () => {
   const { user } = useAuth();
   return (
-    <div>
+    <div className="bg-base-200 rounded-xl ">
       <div className="flex flex-col items-center ">
-        <div className="h-40 bg-linear-to-bl from-primary/70 to-purple-500/50 w-full rounded-t-4xl"></div>
+        <div className="h-40 bg-linear-to-bl from-primary/70 to-purple-500/50 w-full rounded-t-xl"></div>
         <img
           src={user.photoURL}
           alt=""

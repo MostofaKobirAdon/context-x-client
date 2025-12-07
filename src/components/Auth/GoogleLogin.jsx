@@ -1,13 +1,54 @@
 import React from "react";
 import useAuth from "../../hooks/useAuth";
-const GoogleLogin = ({ operation }) => {
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useNavigate } from "react-router";
+const GoogleLogin = ({ operation, state, setLoading }) => {
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
   const { googleSignIn } = useAuth();
   const handleGoogleSignIn = () => {
+    setLoading(true);
     googleSignIn()
       .then((res) => {
-        console.log("after signing with google ", res);
+        axiosSecure
+          .post("/users", {
+            email: res.user.email,
+            displayName: res.user.displayName,
+            photoURL: res.user.photoURL,
+          })
+          .then((res) => {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: `${
+                operation === "Login" ? "Logged in" : "Registered"
+              } successfully with Google`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate(`${state ? state : "/"}`);
+          })
+          .catch((err) =>
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: `${err.message}`,
+              showConfirmButton: false,
+              timer: 1500,
+            })
+          );
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) =>
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: `${err.message}`,
+          showConfirmButton: false,
+          timer: 1500,
+        })
+      )
+      .finally(() => setLoading(false));
   };
   return (
     <button

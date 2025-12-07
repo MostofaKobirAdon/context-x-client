@@ -99,7 +99,11 @@ const Login = () => {
                 </Link>
               </p>
               <div className="divider">OR</div>
-              <GoogleLogin operation={"Login"}></GoogleLogin>
+              <GoogleLogin
+                setLoading={setLoading}
+                state={location.state}
+                operation={"Login"}
+              ></GoogleLogin>
             </div>
           </div>
           <div className=" w-1/2">

@@ -8,6 +8,7 @@ import NotFound from "../Pages/NotFound";
 import DashBoardLayout from "../Layouts/DashBoardLayout";
 import PrivateRoute from "./PrivateRoute";
 import MyProfile from "../Pages/dashboard/MyProfile";
+import AddContest from "../Pages/dashboard/AddContest";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "my-profile",
         element: <MyProfile></MyProfile>,
+      },
+      {
+        path: "add-contest",
+        element: <AddContest></AddContest>,
       },
     ],
   },

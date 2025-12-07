@@ -4,6 +4,8 @@ import { Link, NavLink, Outlet } from "react-router";
 import { IoHomeOutline } from "react-icons/io5";
 import Logo from "../components/Logo";
 import { CgProfile } from "react-icons/cg";
+import { MdFormatListBulletedAdd } from "react-icons/md";
+
 const DashBoardLayout = () => {
   return (
     <div>
@@ -36,8 +38,8 @@ const DashBoardLayout = () => {
             <div className="px-4">User Dashboard</div>
           </nav>
           {/* Page content here */}
-          <div className="p-6 ">
-            <div className="">
+          <div className="p-5 ">
+            <div className="max-w-7xl mx-auto">
               <Outlet />
             </div>
           </div>
@@ -52,7 +54,13 @@ const DashBoardLayout = () => {
           <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
             {/* Sidebar content here */}
             <div className="w-full px-5 pt-3">
-              <img src={logoSm} alt="" className="is-drawer-open:hidden w-5" />
+              <Link to={"/"}>
+                <img
+                  src={logoSm}
+                  alt=""
+                  className="is-drawer-open:hidden w-5"
+                />
+              </Link>
               <div className="is-drawer-close:hidden">
                 <Logo></Logo>
               </div>
@@ -82,6 +90,18 @@ const DashBoardLayout = () => {
                   <CgProfile size={17} />
 
                   <span className="is-drawer-close:hidden">My Profile</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to={"/dashboard/add-contest"}
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Add Contest"
+                >
+                  {/* Home icon */}
+                  <MdFormatListBulletedAdd size={17} />
+
+                  <span className="is-drawer-close:hidden">Add Contest</span>
                 </NavLink>
               </li>
 

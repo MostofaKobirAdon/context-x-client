@@ -5,10 +5,12 @@ import img from "../../assets/Signup.gif";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Register = () => {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
+  const axiosSecure = useAxiosSecure();
 
   const navigate = useNavigate();
   const {
@@ -27,15 +29,32 @@ const Register = () => {
         const user = result.user;
         updateUser({ displayName: name, photoURL: photoURL })
           .then((res) => {
-            Swal.fire({
-              position: "center",
-              icon: "success",
-              title: "Account created successfully",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            reset();
-            navigate(`${location.state ? location.state : "/"}`);
+            axiosSecure
+              .post("/users", {
+                email: email,
+                displayName: name,
+                photoURL: photoURL,
+              })
+              .then((res) => {
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "Account created successfully",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                reset();
+                navigate(`${location.state ? location.state : "/"}`);
+              })
+              .catch((err) => {
+                Swal.fire({
+                  position: "center",
+                  icon: "error",
+                  title: `${err.message}`,
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              });
           })
           .catch((err) => {
             Swal.fire({
@@ -153,7 +172,11 @@ const Register = () => {
                 </Link>
               </p>
               <div className="divider">OR</div>
-              <GoogleLogin operation={"Register"}></GoogleLogin>
+              <GoogleLogin
+                setLoading={setLoading}
+                state={location.state}
+                operation={"Register"}
+              ></GoogleLogin>
             </div>
           </div>
           <div className=" w-1/2">
