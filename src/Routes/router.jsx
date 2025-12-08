@@ -9,6 +9,8 @@ import DashBoardLayout from "../Layouts/DashBoardLayout";
 import PrivateRoute from "./PrivateRoute";
 import MyProfile from "../Pages/dashboard/MyProfile";
 import AddContest from "../Pages/dashboard/AddContest";
+import AllContests from "../Pages/AllContests";
+import ContestDetails from "../Pages/ContestDetails";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,19 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "/contests",
+        element: <AllContests />,
+      },
+      {
+        path: "/contests/:id",
+        element: (
+          <PrivateRoute>
+            {" "}
+            <ContestDetails />
+          </PrivateRoute>
+        ),
       },
     ],
   },

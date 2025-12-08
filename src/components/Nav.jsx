@@ -12,6 +12,9 @@ const Nav = () => {
       <li className="">
         <NavLink to={"/"}>Home</NavLink>
       </li>
+      <li className="">
+        <NavLink to={"/contests"}>All Contests</NavLink>
+      </li>
     </>
   );
   const handleLogOut = () => {
