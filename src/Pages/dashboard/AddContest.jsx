@@ -21,21 +21,12 @@ const AddContest = () => {
   const handleAddContest = (data) => {
     setLoading(true);
     console.log("contest is added", data);
-    // const {
-    //   name,
-    //   image,
-    //   instructions,
-    //   entry_fee,
-    //   deadline,
-    //   description,
-    //   prize_money,
-    //   contest_type,
-    // } = data;
 
     const newContest = {
       ...data,
       deadline: selectedDate,
-      creator: { email: user.email, name: user.displayName },
+      creatorName: user.displayName,
+      creatorEmail: user.email,
     };
 
     axiosSecure
@@ -48,6 +39,7 @@ const AddContest = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        reset();
       })
       .catch((err) => {
         Swal.fire({
@@ -77,7 +69,6 @@ const AddContest = () => {
             <div className="flex gap-10 justify-between max-w-11/12 mx-auto ">
               <div className="w-1/2 space-y-2.5">
                 {" "}
-                {/* Contest Name */}
                 <div className="flex flex-col w-full">
                   <label className="label font-medium">Contest Name</label>
                   <input
@@ -92,7 +83,6 @@ const AddContest = () => {
                     </p>
                   )}
                 </div>
-                {/* Prize Money */}
                 <div className="flex flex-col w-full">
                   <label className="label font-medium">Prize Money</label>
                   <input
@@ -107,7 +97,6 @@ const AddContest = () => {
                     </p>
                   )}
                 </div>
-                {/* Contest Type */}
                 <div className="flex flex-col w-full">
                   <label className="label font-medium">Contest Type</label>
                   <select
@@ -127,7 +116,6 @@ const AddContest = () => {
                     </p>
                   )}
                 </div>
-                {/* Description */}
                 <div className="flex flex-col w-full">
                   <label className="label font-medium">Description</label>
                   <textarea
@@ -143,7 +131,6 @@ const AddContest = () => {
                 </div>
               </div>
               <div className=" w-1/2 space-y-2.5">
-                {/* Image URL */}
                 <div className="flex flex-col w-full">
                   <label className="label font-medium">Photo URL</label>
                   <input
@@ -159,7 +146,6 @@ const AddContest = () => {
                   )}
                 </div>
 
-                {/* Price */}
                 <div className="flex flex-col w-full">
                   <label className="label font-medium">Price</label>
                   <input
@@ -175,20 +161,6 @@ const AddContest = () => {
                   )}
                 </div>
 
-                {/* Deadline
-                <div className="flex flex-col w-full">
-                  <label className="label font-medium">Deadline</label>
-                  <input
-                    {...register("deadline", { required: true })}
-                    type="datetime-local"
-                    className="input input-bordered w-full"
-                  />
-                  {errors.deadline?.type === "required" && (
-                    <p className="text-xs  text-red-500">
-                      this field is requird
-                    </p>
-                  )}
-                </div> */}
                 <div className="flex flex-col w-full">
                   <label className="label font-medium">Deadline</label>
                   <DatePicker
@@ -202,7 +174,6 @@ const AddContest = () => {
                   ></DatePicker>
                 </div>
 
-                {/* Task Instruction */}
                 <div className="flex flex-col w-full">
                   <label className="label font-medium">Task Instruction</label>
                   <textarea

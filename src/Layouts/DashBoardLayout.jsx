@@ -4,10 +4,12 @@ import { Link, NavLink, Outlet } from "react-router";
 import { IoHomeOutline, IoTrophyOutline } from "react-icons/io5";
 import Logo from "../components/Logo";
 import { CgProfile } from "react-icons/cg";
-import { MdFormatListBulletedAdd } from "react-icons/md";
-import { FaUserEdit } from "react-icons/fa";
+import { MdFormatListBulleted, MdFormatListBulletedAdd } from "react-icons/md";
+import { FaTasks, FaUserEdit } from "react-icons/fa";
+import useRole from "../hooks/useRole";
 
 const DashBoardLayout = () => {
+  const { role } = useRole();
   return (
     <div>
       <div className="drawer lg:drawer-open">
@@ -59,7 +61,7 @@ const DashBoardLayout = () => {
                 <img
                   src={logoSm}
                   alt=""
-                  className="is-drawer-open:hidden w-5"
+                  className="is-drawer-open:hidden w-4"
                 />
               </Link>
               <div className="is-drawer-close:hidden">
@@ -93,44 +95,88 @@ const DashBoardLayout = () => {
                   <span className="is-drawer-close:hidden">My Profile</span>
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  to={"/dashboard/participated-contests"}
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Participated Contests"
-                >
-                  {/* Home icon */}
-                  <IoTrophyOutline size={17} />
 
-                  <span className="is-drawer-close:hidden">
-                    Participated Contests
-                  </span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to={"/dashboard/add-contest"}
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Add Contest"
-                >
-                  {/* Home icon */}
-                  <MdFormatListBulletedAdd size={17} />
+              {role === "user" && (
+                <li>
+                  <NavLink
+                    to={"/dashboard/participated-contests"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Participated Contests"
+                  >
+                    {/* Home icon */}
+                    <IoTrophyOutline size={17} />
 
-                  <span className="is-drawer-close:hidden">Add Contest</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to={"/dashboard/manage-users"}
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Manage Users"
-                >
-                  {/* Home icon */}
-                  <FaUserEdit size={17} />
+                    <span className="is-drawer-close:hidden">
+                      Participated Contests
+                    </span>
+                  </NavLink>
+                </li>
+              )}
+              {role === "creator" && (
+                <>
+                  <li>
+                    <NavLink
+                      to={"/dashboard/add-contest"}
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Add Contest"
+                    >
+                      {/* Home icon */}
+                      <MdFormatListBulletedAdd size={17} />
 
-                  <span className="is-drawer-close:hidden">Manage Users</span>
-                </NavLink>
-              </li>
+                      <span className="is-drawer-close:hidden">
+                        Add Contest
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to={"/dashboard/my-created-contests"}
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="My created Contests"
+                    >
+                      {/* Home icon */}
+                      <MdFormatListBulleted size={17} />
+
+                      <span className="is-drawer-close:hidden">
+                        My Created Contests
+                      </span>
+                    </NavLink>
+                  </li>
+                </>
+              )}
+
+              {role === "admin" && (
+                <>
+                  <li>
+                    <NavLink
+                      to={"/dashboard/manage-users"}
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Manage Users"
+                    >
+                      {/* Home icon */}
+                      <FaUserEdit size={17} />
+
+                      <span className="is-drawer-close:hidden">
+                        Manage Users
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to={"/dashboard/manage-contests"}
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Manage Contests"
+                    >
+                      {/* Home icon */}
+                      <FaTasks size={17} />
+
+                      <span className="is-drawer-close:hidden">
+                        Manage Contests
+                      </span>
+                    </NavLink>
+                  </li>
+                </>
+              )}
 
               {/* List item */}
             </ul>
