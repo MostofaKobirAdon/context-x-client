@@ -51,13 +51,13 @@ const MyCreatedContests = () => {
                 </td>
                 <td className="space-x-2">
                   <button
-                    disabled={contest.status === "approved" ? true : false}
+                    disabled={contest.status !== "pending" && true}
                     className="btn btn-sm btn-primary text-white "
                   >
                     <MdModeEditOutline size={20} />
                   </button>
                   <button
-                    disabled={contest.status === "approved" ? true : false}
+                    disabled={contest.status !== "pending" && true}
                     className="btn btn-sm btn-warning text-white "
                   >
                     <FaRegTrashAlt size={20} />
