@@ -1,10 +1,11 @@
 import React from "react";
 import logoSm from "../assets/logoSm.png";
 import { Link, NavLink, Outlet } from "react-router";
-import { IoHomeOutline } from "react-icons/io5";
+import { IoHomeOutline, IoTrophyOutline } from "react-icons/io5";
 import Logo from "../components/Logo";
 import { CgProfile } from "react-icons/cg";
 import { MdFormatListBulletedAdd } from "react-icons/md";
+import { FaUserEdit } from "react-icons/fa";
 
 const DashBoardLayout = () => {
   return (
@@ -94,6 +95,20 @@ const DashBoardLayout = () => {
               </li>
               <li>
                 <NavLink
+                  to={"/dashboard/participated-contests"}
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Participated Contests"
+                >
+                  {/* Home icon */}
+                  <IoTrophyOutline size={17} />
+
+                  <span className="is-drawer-close:hidden">
+                    Participated Contests
+                  </span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
                   to={"/dashboard/add-contest"}
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Add Contest"
@@ -102,6 +117,18 @@ const DashBoardLayout = () => {
                   <MdFormatListBulletedAdd size={17} />
 
                   <span className="is-drawer-close:hidden">Add Contest</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to={"/dashboard/manage-users"}
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Manage Users"
+                >
+                  {/* Home icon */}
+                  <FaUserEdit size={17} />
+
+                  <span className="is-drawer-close:hidden">Manage Users</span>
                 </NavLink>
               </li>
 

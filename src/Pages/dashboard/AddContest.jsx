@@ -3,10 +3,13 @@ import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const AddContest = () => {
+  const [selectedDate, setSelectedDate] = useState();
   const axiosSecure = useAxiosSecure();
-  const user = useAuth();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -31,6 +34,7 @@ const AddContest = () => {
 
     const newContest = {
       ...data,
+      deadline: selectedDate,
       creator: { email: user.email, name: user.displayName },
     };
 
@@ -171,7 +175,7 @@ const AddContest = () => {
                   )}
                 </div>
 
-                {/* Deadline */}
+                {/* Deadline
                 <div className="flex flex-col w-full">
                   <label className="label font-medium">Deadline</label>
                   <input
@@ -184,6 +188,18 @@ const AddContest = () => {
                       this field is requird
                     </p>
                   )}
+                </div> */}
+                <div className="flex flex-col w-full">
+                  <label className="label font-medium">Deadline</label>
+                  <DatePicker
+                    selected={selectedDate}
+                    onChange={(date) => setSelectedDate(date)}
+                    className="input w-full"
+                    dateFormat="yyyy/MM/dd"
+                    minDate={new Date()}
+                    isClearable={true}
+                    placeholderText="Select a date"
+                  ></DatePicker>
                 </div>
 
                 {/* Task Instruction */}
