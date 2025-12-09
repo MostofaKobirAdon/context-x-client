@@ -17,7 +17,7 @@ const ManageUser = () => {
   const handleMakeAdmin = (user) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "This user will be able in admin actions",
+      text: `${user.displayName} will be able in admin actions`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -30,7 +30,7 @@ const ManageUser = () => {
           .then((res) => {
             Swal.fire({
               title: "Marked as Admin",
-              text: "User has been marked as Admin",
+              text: `${user.displayName} has been marked as Admin`,
               icon: "success",
             });
             refetch();
@@ -48,7 +48,7 @@ const ManageUser = () => {
   const handleRemoveAdmin = (user) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "This user will not be able in admin actions",
+      text: `${user.displayName} will not be able in admin actions`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -61,7 +61,7 @@ const ManageUser = () => {
           .then((res) => {
             Swal.fire({
               title: "Removed from Admin",
-              text: "User has been removed from Admin",
+              text: `${user.displayName} has been removed from Admin`,
               icon: "success",
             });
             refetch();
