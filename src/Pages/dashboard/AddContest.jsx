@@ -20,7 +20,6 @@ const AddContest = () => {
 
   const handleAddContest = (data) => {
     setLoading(true);
-    console.log("contest is added", data);
 
     const newContest = {
       ...data,
@@ -164,6 +163,7 @@ const AddContest = () => {
                 <div className="flex flex-col w-full">
                   <label className="label font-medium">Deadline</label>
                   <DatePicker
+                    required
                     selected={selectedDate}
                     onChange={(date) => setSelectedDate(date)}
                     className="input w-full"

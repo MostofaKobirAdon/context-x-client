@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import Countdown from "react-countdown";
 
 const ContestDetails = () => {
   const { id } = useParams();
@@ -16,7 +17,39 @@ const ContestDetails = () => {
 
   const { image, name, participantsCount, prize_money, deadline, description } =
     contest;
-  console.log(new Date(deadline).getTime());
+  const renderer = ({ days, hours, minutes, seconds, completed }) => {
+    if (completed) {
+      return (
+        <div className="text-red-500 font-bold text-xl mt-2">
+          Deadlin is over
+        </div>
+      );
+    }
+
+    return (
+      <>
+        <span className="font-semibold">Deadline :</span>
+        <div className="grid grid-cols-4 gap-3 bg-base-300 rounded-xl mt-1 p-3 text-center auto-cols-max">
+          <div className="flex w-22 flex-col p-2 bg-primary text-neutral-content rounded-box">
+            <span className="font-medium text-3xl">{days}</span>
+            <span className="text-sm">Days</span>
+          </div>
+          <div className="flex w-22 flex-col p-2 bg-primary text-neutral-content rounded-box">
+            <span className="font-medium text-3xl">{hours}</span>
+            <span className="text-sm">Hours</span>
+          </div>
+          <div className="flex w-22 flex-col p-2 bg-primary text-neutral-content rounded-box">
+            <span className="font-medium text-3xl">{minutes}</span>
+            <span className="text-sm">Minutes</span>
+          </div>
+          <div className="flex w-22 flex-col p-2 bg-primary text-neutral-content rounded-box">
+            <span className="font-medium text-3xl">{seconds}</span>
+            <span className="text-sm">seconds</span>
+          </div>
+        </div>
+      </>
+    );
+  };
   return (
     <>
       {isLoading ? (
@@ -33,7 +66,7 @@ const ContestDetails = () => {
             />
             <div className="">
               <h1 className="text-[34px] font-bold">{name}</h1>
-              <p className="text-xl mt-3">
+              <p className="text-xl mt-2">
                 <span className="font-semibold">Total Participants : </span>
                 {participantsCount}
               </p>
@@ -43,62 +76,8 @@ const ContestDetails = () => {
                   ${prize_money}
                 </div>
               </div>
-              <div className="text-xl mt-3">
-                <span className="font-semibold">Deadline</span>
-                {/* deadlin */}
-                <div
-                  className="grid grid-flow-col gap-3 bg-base-300 rounded-xl mt-1
-             p-3 text-center auto-cols-max"
-                >
-                  <div className="flex w-23 items-center  flex-col p-1 bg-primary rounded-box text-neutral-content">
-                    <span className="countdown font-mono text-4xl">
-                      <span
-                        style={{ "--value": 25 } /* as React.CSSProperties */}
-                        aria-live="polite"
-                        // aria-label={counter}
-                      >
-                        15
-                      </span>
-                    </span>
-                    days
-                  </div>
-                  <div className="flex w-23 items-center  flex-col p-1 bg-primary rounded-box text-neutral-content">
-                    <span className="countdown font-mono text-4xl">
-                      <span
-                        style={{ "--value": 25 } /* as React.CSSProperties */}
-                        aria-live="polite"
-                        // aria-label={counter}
-                      >
-                        15
-                      </span>
-                    </span>
-                    hours
-                  </div>
-                  <div className="flex w-23 items-center  flex-col p-1 bg-primary rounded-box text-neutral-content">
-                    <span className="countdown font-mono text-4xl">
-                      <span
-                        style={{ "--value": 25 } /* as React.CSSProperties */}
-                        aria-live="polite"
-                        // aria-label={counter}
-                      >
-                        15
-                      </span>
-                    </span>
-                    minuts
-                  </div>
-                  <div className="flex  w-23 items-center  flex-col p-1 bg-primary rounded-box text-neutral-content">
-                    <span className="countdown font-mono text-4xl">
-                      <span
-                        style={{ "--value": 25 } /* as React.CSSProperties */}
-                        aria-live="polite"
-                        // aria-label={counter}
-                      >
-                        15
-                      </span>
-                    </span>
-                    seconds
-                  </div>
-                </div>
+              <div className="text-xl mt-1">
+                <Countdown date={deadline} renderer={renderer}></Countdown>
               </div>
             </div>
           </div>

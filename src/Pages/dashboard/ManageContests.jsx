@@ -69,6 +69,37 @@ const ManageContests = () => {
       }
     });
   };
+  const handleDeleteContest = (contest) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `${contest.name} will be deleted and lost`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .delete(`/contests/${contest._id}`)
+          .then((res) => {
+            Swal.fire({
+              title: "Contests Deleted",
+              text: `${contest.name} has been Deleted`,
+              icon: "success",
+            });
+            refetch();
+          })
+          .catch((err) => {
+            Swal.fire({
+              title: "Opps!",
+              text: `${err.message}`,
+              icon: "error",
+            });
+          });
+      }
+    });
+  };
   return (
     <>
       {isLoading ? (
@@ -135,7 +166,10 @@ const ManageContests = () => {
                         >
                           Reject
                         </button>
-                        <button className="btn btn-warning btn-xs">
+                        <button
+                          onClick={() => handleDeleteContest(contest)}
+                          className="btn btn-warning btn-xs"
+                        >
                           <FiTrash2 size={17} />
                         </button>
                       </div>
