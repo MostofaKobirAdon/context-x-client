@@ -9,7 +9,9 @@ const PopularContests = () => {
   const { data: contests = [] } = useQuery({
     queryKey: ["popular-contests"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/popular-contests?limit=6");
+      const res = await axiosSecure.get(
+        "/popular-contests?limit=6&status=approved"
+      );
       return res.data;
     },
   });

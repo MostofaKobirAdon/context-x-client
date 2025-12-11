@@ -4,6 +4,8 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { MdModeEditOutline } from "react-icons/md";
 import { FaRegTrashAlt } from "react-icons/fa";
+import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const MyCreatedContests = () => {
   const { user } = useAuth();
@@ -17,6 +19,37 @@ const MyCreatedContests = () => {
       return res.data;
     },
   });
+  const handleDeleteContest = (contest) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `${contest.name} will be deleted and lost`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .delete(`/contests/${contest._id}`)
+          .then((res) => {
+            Swal.fire({
+              title: "Contests Deleted",
+              text: `${contest.name} has been Deleted`,
+              icon: "success",
+            });
+            refetch();
+          })
+          .catch((err) => {
+            Swal.fire({
+              title: "Opps!",
+              text: `${err.message}`,
+              icon: "error",
+            });
+          });
+      }
+    });
+  };
   return (
     <div className="bg-base-200 rounded-xl min-h-[80vh] p-3">
       <h1 className="section-heading text-center">
@@ -50,13 +83,15 @@ const MyCreatedContests = () => {
                   </div>
                 </td>
                 <td className="space-x-2">
-                  <button
+                  <Link
+                    to={`/dashboard/edit-contest/${contest._id}`}
                     disabled={contest.status !== "pending" && true}
                     className="btn btn-sm btn-primary text-white "
                   >
                     <MdModeEditOutline size={20} />
-                  </button>
+                  </Link>
                   <button
+                    onClick={() => handleDeleteContest(contest)}
                     disabled={contest.status !== "pending" && true}
                     className="btn btn-sm btn-warning text-white "
                   >

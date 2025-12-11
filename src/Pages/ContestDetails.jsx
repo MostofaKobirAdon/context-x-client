@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useParams } from "react-router";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
@@ -6,6 +6,8 @@ import Countdown from "react-countdown";
 
 const ContestDetails = () => {
   const { id } = useParams();
+  const modalRef = useRef();
+  const [ended, setEnded] = useState(false);
   const axiosSecure = useAxiosSecure();
   const { isLoading, data: contest = [] } = useQuery({
     queryKey: ["contest-details", id],
@@ -14,11 +16,15 @@ const ContestDetails = () => {
       return res.data;
     },
   });
-
+  const handleOpenMoadl = () => {
+    modalRef.current.showModal();
+  };
   const { image, name, participantsCount, prize_money, deadline, description } =
     contest;
+
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
+      setEnded(true);
       return (
         <div className="text-red-500 font-bold text-xl mt-2">
           Deadlin is over
@@ -94,9 +100,35 @@ const ContestDetails = () => {
             </div>
           </div>
           <div className="flex gap-3 mt-6">
-            <button className="btn btn-primary w-40">Register / Pay</button>
-            <button className="btn btn-primary w-40">Submit Task</button>
+            <button disabled={ended} className="btn btn-primary w-40">
+              Register / Pay
+            </button>
+            <button onClick={handleOpenMoadl} className="btn btn-primary w-40">
+              Submit Task
+            </button>
           </div>
+
+          {/* heer is th modal */}
+          <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
+            <div className="modal-box h-90">
+              <h3 className="font-semibold text-xl">
+                Submit <span className="text-primary font-bold">Task</span>
+              </h3>
+              <p className="py-4 text-sm text-gray-500">
+                Write aboutyour submission or necessary links
+              </p>
+              <textarea
+                className="textarea min-h-40 w-full"
+                placeholder="Description or necessary links"
+              ></textarea>
+              <div className="modal-action">
+                <button className="btn btn-primary">Submit</button>
+                <form method="dialog">
+                  <button className="btn">Close</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
         </div>
       )}
     </>

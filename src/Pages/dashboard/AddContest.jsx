@@ -5,6 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
 
 const AddContest = () => {
   const [selectedDate, setSelectedDate] = useState();
@@ -20,25 +21,58 @@ const AddContest = () => {
 
   const handleAddContest = (data) => {
     setLoading(true);
-
-    const newContest = {
-      ...data,
-      deadline: selectedDate,
-      creatorName: user.displayName,
-      creatorEmail: user.email,
-    };
-
-    axiosSecure
-      .post("contests", newContest)
+    const file = data.image[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    const {
+      contest_type,
+      description,
+      entry_fee,
+      instructions,
+      name,
+      prize_money,
+    } = data;
+    axios
+      .post(
+        `https://api.imgbb.com/1/upload?key=${
+          import.meta.env.VITE_IMGBB_APIKEY
+        }`,
+        formData
+      )
       .then((res) => {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "New Contest has been added",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        reset();
+        const newContest = {
+          contest_type,
+          description,
+          entry_fee,
+          image: res.data.data.url,
+          instructions,
+          name,
+          prize_money,
+          deadline: selectedDate,
+          creatorName: user.displayName,
+          creatorEmail: user.email,
+        };
+        axiosSecure
+          .post("/contests", newContest)
+          .then((res) => {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "New Contest has been added",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            reset();
+          })
+          .catch((err) => {
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: `${err.message}`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          });
       })
       .catch((err) => {
         Swal.fire({
@@ -106,7 +140,6 @@ const AddContest = () => {
                     <option value={"coding"}>Coding</option>
                     <option value={"design"}>Design</option>
                     <option value={"gaming"}>Gaming</option>
-                    <option value={"video"}>Video</option>
                     <option value={"writing"}>Writing</option>
                   </select>
                   {errors.contest_type?.type === "required" && (
@@ -131,12 +164,13 @@ const AddContest = () => {
               </div>
               <div className=" w-1/2 space-y-2.5">
                 <div className="flex flex-col w-full">
-                  <label className="label font-medium">Photo URL</label>
+                  <label className="label font-medium">Photo</label>
+
                   <input
+                    placeholder="Image"
                     {...register("image", { required: true })}
-                    type="text"
-                    placeholder="Photo URL"
-                    className="input input-bordered w-full"
+                    type="file"
+                    className="file-input w-full"
                   />
                   {errors.image?.type === "required" && (
                     <p className="text-xs  text-red-500">

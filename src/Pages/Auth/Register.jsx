@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import axios from "axios";
 
 const Register = () => {
   const location = useLocation();
@@ -23,28 +24,50 @@ const Register = () => {
 
   const handleRegister = (data) => {
     setLoading(true);
-    const { email, password, name, photoURL } = data;
+    const { email, password, name, photo } = data;
+    const file = photo[0];
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-        updateUser({ displayName: name, photoURL: photoURL })
+        const formData = new FormData();
+        formData.append("image", file);
+        axios
+          .post(
+            `https://api.imgbb.com/1/upload?key=${
+              import.meta.env.VITE_IMGBB_APIKEY
+            }`,
+            formData
+          )
           .then((res) => {
-            axiosSecure
-              .post("/users", {
-                email: email,
-                displayName: name,
-                photoURL: photoURL,
-              })
+            const photoUrl = res.data.data.url;
+            updateUser({ displayName: name, photoURL: photoUrl })
               .then((res) => {
-                Swal.fire({
-                  position: "center",
-                  icon: "success",
-                  title: "Account created successfully",
-                  showConfirmButton: false,
-                  timer: 1500,
-                });
-                reset();
-                navigate(`${location.state ? location.state : "/"}`);
+                axiosSecure
+                  .post("/users", {
+                    email: email,
+                    displayName: name,
+                    photoURL: photoUrl,
+                  })
+                  .then((res) => {
+                    Swal.fire({
+                      position: "center",
+                      icon: "success",
+                      title: "Account created successfully",
+                      showConfirmButton: false,
+                      timer: 1500,
+                    });
+                    reset();
+                    navigate(`${location.state ? location.state : "/"}`);
+                  })
+                  .catch((err) => {
+                    Swal.fire({
+                      position: "center",
+                      icon: "error",
+                      title: `${err.message}`,
+                      showConfirmButton: false,
+                      timer: 1500,
+                    });
+                  });
               })
               .catch((err) => {
                 Swal.fire({
@@ -120,14 +143,14 @@ const Register = () => {
                     email is required
                   </p>
                 )}
-                <label className="label">Photo URL</label>
+                <label className="label">Photo</label>
+
                 <input
-                  {...register("photoURL", { required: true })}
-                  type="text"
-                  className="input w-full"
-                  placeholder="Photo URL"
+                  {...register("photo", { required: true })}
+                  type="file"
+                  className="file-input w-full"
                 />
-                {errors.photoURL?.type === "required" && (
+                {errors.photo?.type === "required" && (
                   <p className="text-red-500 text-xs  -mt-1.5">
                     photoURL is required
                   </p>
