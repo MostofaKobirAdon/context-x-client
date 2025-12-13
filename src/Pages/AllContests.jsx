@@ -20,7 +20,7 @@ const AllContests = () => {
 
   return (
     <div>
-      <div className="flex flex-col gap-y-10">
+      <div className="flex flex-col gap-y-10 min-h-[85vh]">
         <div className="mt-10 text-center">
           <h1 className="section-heading">
             Explore All{" "}

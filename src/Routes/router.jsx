@@ -18,6 +18,7 @@ import CreatorRoute from "./CreatorRoute";
 import MyCreatedContests from "../Pages/dashboard/MyCreatedContests";
 import ManageContests from "../Pages/dashboard/ManageContests";
 import EditContest from "../Pages/dashboard/EditContest";
+import About from "../Pages/About";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/contests",
         element: <AllContests />,
+      },
+      {
+        path: "/about",
+        element: <About />,
       },
       {
         path: "/contests/:id",

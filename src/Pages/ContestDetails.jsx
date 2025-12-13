@@ -3,9 +3,11 @@ import { useParams } from "react-router";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Countdown from "react-countdown";
+import useAuth from "../hooks/useAuth";
 
 const ContestDetails = () => {
   const { id } = useParams();
+  const { user } = useAuth();
   const modalRef = useRef();
   const [ended, setEnded] = useState(false);
   const axiosSecure = useAxiosSecure();
@@ -19,8 +21,16 @@ const ContestDetails = () => {
   const handleOpenMoadl = () => {
     modalRef.current.showModal();
   };
-  const { image, name, participantsCount, prize_money, deadline, description } =
-    contest;
+  const {
+    _id,
+    image,
+    name,
+    participantsCount,
+    entry_fee,
+    prize_money,
+    deadline,
+    description,
+  } = contest;
 
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
@@ -55,6 +65,19 @@ const ContestDetails = () => {
         </div>
       </>
     );
+  };
+  const handlePay = async () => {
+    const paymentInfo = {
+      cost: entry_fee,
+      contestId: _id,
+      participantEmail: user.email,
+      contestName: name,
+    };
+    const res = await axiosSecure.post(
+      "/payment-checkout-session",
+      paymentInfo
+    );
+    window.location.href = res.data.url;
   };
   return (
     <>
@@ -100,7 +123,11 @@ const ContestDetails = () => {
             </div>
           </div>
           <div className="flex gap-3 mt-6">
-            <button disabled={ended} className="btn btn-primary w-40">
+            <button
+              onClick={handlePay}
+              disabled={ended}
+              className="btn btn-primary w-40"
+            >
               Register / Pay
             </button>
             <button onClick={handleOpenMoadl} className="btn btn-primary w-40">
