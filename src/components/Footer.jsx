@@ -4,7 +4,7 @@ import Logo from "./Logo";
 
 const Footer = () => {
   return (
-    <footer className="  bg-secondary/100 text-neutral-content p-10">
+    <div data-aos="fade-up" className="  bg-accent text-neutral-content p-10">
       <div className="max-w-6xl mx-auto footer sm:footer-horizontal">
         <aside>
           <Logo isDark={true}></Logo>
@@ -26,7 +26,7 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto text-center mt-4">
         <p className="text-white">Copyright © 2025 ContestX</p>
       </div>
-    </footer>
+    </div>
   );
 };
 

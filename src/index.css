@@ -5,25 +5,42 @@
 }
 
 @plugin "daisyui/theme" {
-  name: "mytheme";
+  name: "light";
   default: true; /* set as default */
   prefersdark: false; /* set as default dark mode (prefers-color-scheme:dark) */
   color-scheme: light; /* color of browser-provided UI */
 
   --color-primary: #4a75ed;
   --color-secondary: #1f2937;
+  --color-secondary-content: #5c5d5e;
+  --color-accent: #1f2937;
+  --color-base-100: #e0e0e0;
+}
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: false; /* set as default */
+  color-scheme: dark;
+
+  --color-primary: #4a75ed;
+  --color-secondary: #ffffff;
+  --color-secondary-content: #bababf;
+  --color-accent: #1f2937;
+  --color-base-100: #1c1f2e;
 }
 
 .subtext {
-  @apply text-gray-500 font-medium mb-5;
+  @apply text-secondary-content lg:font-medium mb-5;
 }
 
 .section-heading {
-  @apply text-4xl font-semibold text-secondary;
+  @apply lg:text-4xl text-3xl font-semibold text-secondary;
 }
 .active {
   @apply bg-primary text-white;
 }
 .card-grid {
-  @apply grid grid-cols-3 gap-6;
+  @apply grid lg:grid-cols-3 gap-6 grid-cols-1;
+}
+.banner-title {
+  @apply lg:text-6xl text-4xl font-semibold;
 }

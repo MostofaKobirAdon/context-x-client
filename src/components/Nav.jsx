@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/logo.png";
 import { Link, NavLink } from "react-router";
 import Logo from "./Logo";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
+import { IoSunny } from "react-icons/io5";
+import { FaMoon } from "react-icons/fa";
 
 const Nav = () => {
   const { user, logOut } = useAuth();
+
   const links = (
     <>
       <li className="">
@@ -17,6 +20,12 @@ const Nav = () => {
       </li>
       <li className="">
         <NavLink to={"/about"}>About Us</NavLink>
+      </li>
+      <li className="">
+        <NavLink to={"/faq"}>FAQ</NavLink>
+      </li>
+      <li className="">
+        <NavLink to={"/contact"}>Contact</NavLink>
       </li>
     </>
   );
@@ -41,8 +50,20 @@ const Nav = () => {
         });
       });
   };
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const handleThemeToggole = (e) => {
+    const value = e.target.checked;
+    setTheme(value ? "dark" : "light");
+  };
+
   return (
-    <div className="fixed left-0 shadow-sm bg-gray-100/50 right-0 top-0 z-10">
+    <div className="fixed left-0 shadow-sm   bg-gray-100/50 right-0 top-0 z-10">
       <div className="navbar w-11/12 mx-auto  bg-transparent ">
         <div className="navbar-start">
           <div className="dropdown">
@@ -77,7 +98,19 @@ const Nav = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end flex gap-2">
+          <label className="toggle bg-transparent text-base-content">
+            <input
+              type="checkbox"
+              checked={theme === "dark" ? true : false}
+              onChange={(e) => handleThemeToggole(e)}
+              className="theme-controller"
+            />
+
+            <IoSunny />
+
+            <FaMoon />
+          </label>
           {user ? (
             <>
               <div className="dropdown dropdown-end">

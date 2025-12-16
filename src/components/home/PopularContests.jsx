@@ -18,7 +18,7 @@ const PopularContests = () => {
 
   return (
     <div>
-      <div className="text-center">
+      <div data-aos="fade-down" className="text-center">
         <h1 className="section-heading">
           Our <span className="font-bold text-primary">Popular</span> Contests
         </h1>
@@ -31,7 +31,7 @@ const PopularContests = () => {
           <ContestCard key={index} data={contest}></ContestCard>
         ))}
       </div>
-      <div className="w-full text-center mt-5">
+      <div data-aos="fade-up" className="w-full text-center mt-5">
         <Link to={"/contests"} className="btn btn-primary btn-outline  w-40">
           Show All
         </Link>

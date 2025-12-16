@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import img from "../../assets/login.gif";
+import img from "../../assets/login.png";
 import GoogleLogin from "../../components/Auth/GoogleLogin";
 import { Link, useLocation, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
@@ -47,15 +47,15 @@ const Login = () => {
       });
   };
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex flex-col md:flex-row items-center justify-center">
       {loading ? (
         <div className="flex justify-center items-center min-h-[80vh]">
           <span className="loading loading-dots loading-xl"></span>
         </div>
       ) : (
         <>
-          <div className="card-body  w-1/2">
-            <div className="w-4/6 mx-auto ">
+          <div className="card-body w-full  md:w-1/2">
+            <div className="md:w-4/6 w-full  mx-auto ">
               <h1 className="section-heading">
                 <span className="text-primary font-bold">Welcome</span> Back
               </h1>
@@ -106,7 +106,7 @@ const Login = () => {
               ></GoogleLogin>
             </div>
           </div>
-          <div className=" w-1/2">
+          <div className="  md:w-1/2">
             <img src={img} alt="" className="" />
           </div>
         </>

@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logoSm from "../assets/logoSm.png";
 import { Link, NavLink, Outlet } from "react-router";
-import { IoHomeOutline, IoTrophyOutline } from "react-icons/io5";
+import { IoHomeOutline, IoSunny, IoTrophyOutline } from "react-icons/io5";
 import Logo from "../components/Logo";
 import { CgProfile } from "react-icons/cg";
 import { MdFormatListBulleted, MdFormatListBulletedAdd } from "react-icons/md";
-import { FaTasks, FaUserEdit } from "react-icons/fa";
+import { FaMoon, FaTasks, FaUserEdit } from "react-icons/fa";
 import useRole from "../hooks/useRole";
+import { FiFileText } from "react-icons/fi";
 
 const DashBoardLayout = () => {
   const { role } = useRole();
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const handleThemeToggole = (e) => {
+    const value = e.target.checked;
+    setTheme(value ? "dark" : "light");
+  };
   return (
     <div>
       <div className="drawer lg:drawer-open">
@@ -38,11 +50,23 @@ const DashBoardLayout = () => {
                 <path d="M14 10l2 2l-2 2"></path>
               </svg>
             </label>
-            <div className="px-4">User Dashboard</div>
+            <div className="px-4">Dashboard</div>
+            <label className="toggle bg-transparent text-base-content">
+              <input
+                type="checkbox"
+                checked={theme === "dark" ? true : false}
+                onChange={(e) => handleThemeToggole(e)}
+                className="theme-controller"
+              />
+
+              <IoSunny />
+
+              <FaMoon />
+            </label>
           </nav>
           {/* Page content here */}
           <div className="p-5 ">
-            <div className="max-w-7xl mx-auto">
+            <div className="md:max-w-7xl max-w-[97%] mx-auto">
               <Outlet />
             </div>
           </div>
@@ -139,6 +163,20 @@ const DashBoardLayout = () => {
 
                       <span className="is-drawer-close:hidden">
                         My Created Contests
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to={"/dashboard/submissions"}
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Submitted Tasks"
+                    >
+                      {/* Home icon */}
+                      <FiFileText size={17} />
+
+                      <span className="is-drawer-close:hidden">
+                        Submitted Tasks
                       </span>
                     </NavLink>
                   </li>

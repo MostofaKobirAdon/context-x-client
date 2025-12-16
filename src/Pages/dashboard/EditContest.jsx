@@ -24,9 +24,35 @@ const EditContest = () => {
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      name: "",
+      image: "",
+      description: "",
+      prize_money: "",
+      entry_fee: "",
+      instructions: "",
+      contest_type: "",
+    },
+  });
 
-  const handleAddContest = (data) => {
+  useEffect(() => {
+    if (contest._id) {
+      reset({
+        name: contest.name,
+        image: contest.image,
+        description: contest.description,
+        prize_money: contest.prize_money,
+        entry_fee: contest.entry_fee,
+        instructions: contest.instructions,
+        contest_type: contest.contest_type,
+      });
+
+      setSelectedDate(new Date(contest.deadline));
+    }
+  }, [contest, reset]);
+
+  const handleEditContest = (data) => {
     axiosSecure
       .patch(`/contests/${contest._id}`, { ...data, deadline: selectedDate })
       .then((res) => {
@@ -70,7 +96,7 @@ const EditContest = () => {
         Edit <span className="text-primary">Contest</span>
       </h1>
 
-      <form onSubmit={handleSubmit(handleAddContest)} className="">
+      <form onSubmit={handleSubmit(handleEditContest)} className="">
         <div className="flex gap-10 justify-between max-w-11/12 mx-auto ">
           <div className="w-1/2 space-y-2.5">
             {" "}

@@ -128,7 +128,7 @@ const ManageContests = () => {
                 {contests.map((contest, index) => (
                   <tr>
                     <th>{index + 1}</th>
-                    <td className="font-semibold text-secondary">
+                    <td className="font-semibold  text-secondary">
                       {contest.name}
                     </td>
                     <td className=" text-secondary">{contest.creatorEmail}</td>

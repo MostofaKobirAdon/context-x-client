@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import GoogleLogin from "../../components/Auth/GoogleLogin";
-import img from "../../assets/Signup.gif";
+import img from "../../assets/Signup.png";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
@@ -101,15 +101,15 @@ const Register = () => {
       .finally(() => setLoading(false));
   };
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex md:flex-row flex-col items-center justify-center">
       {loading ? (
         <div className="flex justify-center items-center min-h-[80vh]">
           <span className="loading loading-dots loading-xl"></span>
         </div>
       ) : (
         <>
-          <div className="card-body  w-1/2">
-            <div className="w-4/6 mx-auto ">
+          <div className="card-body w-full  md:w-1/2">
+            <div className="md:w-4/6 w-full mx-auto ">
               <h1 className="section-heading">
                 Create an{" "}
                 <span className="text-primary font-bold">Account</span>
@@ -202,7 +202,7 @@ const Register = () => {
               ></GoogleLogin>
             </div>
           </div>
-          <div className=" w-1/2">
+          <div className=" md:w-1/2">
             <img src={img} alt="" className="" />
           </div>
         </>

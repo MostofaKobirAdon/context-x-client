@@ -7,7 +7,7 @@ const Logo = ({ isDark }) => {
       <div className="flex">
         <img src={logo} alt="" className="h-8.5 w-8.5" />
         <p
-          className={`text-lg mt-1 font-medium ${
+          className={`text-lg mt-1 text-secondary font-medium ${
             isDark ? "text-white " : "text-black"
           }`}
         >

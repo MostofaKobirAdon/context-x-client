@@ -12,7 +12,7 @@ const AuthLayout = () => {
   }
   return (
     <div className=" min-h-screen ">
-      <div className="max-w-6xl mx-auto ">
+      <div className="lg:max-w-6xl max-w-11/12 mx-auto ">
         <div className="py-2 px-3">
           <Logo></Logo>
         </div>

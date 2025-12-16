@@ -12,19 +12,19 @@ import BannerSearch from "./BannerSearch";
 
 const Banner = () => {
   return (
-    <div>
+    <div data-aos="fade-down">
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
         loop={true}
         autoplay={{ delay: 2700, disableOnInteraction: false }}
         pagination={{ clickable: true }}
         navigation={true}
-        className="h-[460px] "
+        className="md:h-[460px]  h-190"
       >
-        <SwiperSlide className="h-[460px]">
-          <div className="flex">
-            <div className="w-1/2 text-center py-22">
-              <h1 className="text-6xl font-semibold">
+        <SwiperSlide className="md:h-[460px] h-190">
+          <div className="md:flex">
+            <div className="md:w-1/2 text-center py-22">
+              <h1 className="banner-title">
                 Create Your{" "}
                 <span className="text-primary font-bold">Contest</span> in
                 Seconds
@@ -37,19 +37,19 @@ const Banner = () => {
             <img
               src={img1}
               alt=""
-              className="w-1/2 h-full object-cover overflow-hidden"
+              className="md:w-1/2 h-full object-cover overflow-hidden"
             />
           </div>
         </SwiperSlide>
-        <SwiperSlide className="h-[460px]">
-          <div className="flex">
+        <SwiperSlide className="md:h-[460px] h-190">
+          <div className="md:flex">
             <img
               src={img2}
               alt=""
-              className="w-1/2 h-full object-cover overflow-hidden"
+              className="md:w-1/2 h-full object-cover overflow-hidden"
             />
-            <div className="w-1/2 text-left py-22">
-              <h1 className="text-6xl font-semibold">
+            <div className="md:w-1/2 md:text-left text-center  py-22">
+              <h1 className="banner-title">
                 Invite Participants &
                 <span className="text-primary font-bold"> Grow</span> Engagement
               </h1>
@@ -60,10 +60,10 @@ const Banner = () => {
             </div>
           </div>
         </SwiperSlide>
-        <SwiperSlide className="h-[460px]">
-          <div className="flex">
-            <div className="w-1/2 text-center py-22">
-              <h1 className="text-6xl font-semibold">
+        <SwiperSlide className="md:h-[460px] h-190">
+          <div className="md:flex">
+            <div className="md:w-1/2 text-center py-22">
+              <h1 className="banner-title">
                 Track Results &
                 <span className="text-primary font-bold"> Celebrate</span>{" "}
                 Winners
@@ -77,7 +77,7 @@ const Banner = () => {
             <img
               src={img3}
               alt=""
-              className="w-1/2 h-full object-cover overflow-hidden"
+              className="md:w-1/2 h-full object-cover overflow-hidden"
             />
           </div>
         </SwiperSlide>

@@ -70,7 +70,7 @@ const MyCreatedContests = () => {
             {contests.map((contest, index) => (
               <tr>
                 <th>{index + 1}</th>
-                <td className="font-medium text-secondary">{contest.name}</td>
+                <td className="font-medium  text-secondary">{contest.name}</td>
                 <td>
                   <div
                     className={`badge ${
@@ -99,7 +99,14 @@ const MyCreatedContests = () => {
                   </button>
                 </td>
                 <td>
-                  <button className="btn-primary btn btn-sm">
+                  <button
+                    disabled={
+                      contest.status !== "approved" || contest.isEnded
+                        ? true
+                        : false
+                    }
+                    className="btn-primary btn btn-sm"
+                  >
                     See Submissions
                   </button>
                 </td>

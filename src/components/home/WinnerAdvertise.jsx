@@ -81,7 +81,7 @@ const WinnerAdvertise = () => {
 
   return (
     <div className="">
-      <div className="text-center">
+      <div data-aos="fade-down" className="text-center">
         <h1 className="section-heading ">
           See Our <span className="font-bold text-primary">Contest</span>{" "}
           Winners
@@ -90,26 +90,35 @@ const WinnerAdvertise = () => {
           See our winners, what they say and their prize
         </p>
       </div>
-      <div className="w-full px-4  relative">
+      <div data-aos="fade-up" className="w-full px-4  relative">
         {/* <div className="bg-linear-to-l  from-white/50 via-white/5  via-transparent  via-white/5 to-white/50  absolute top-0 bottom-0 left-0 right-0 z-10"></div> */}
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
-          loop={true}
-          navigation={{ clickable: true }}
+          loop
+          navigation
           pagination={{ clickable: true }}
-          centeredSlides={true}
           autoplay={{ delay: 2700, disableOnInteraction: false }}
-          slidesPerView={2}
-          spaceBetween={25}
-          className=" h-110"
+          spaceBetween={20}
+          centeredSlides={false}
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+            },
+
+            768: {
+              slidesPerView: 2,
+              centeredSlides: true,
+            },
+          }}
+          className="h-120 md:h-110"
         >
           {winners.map((winner) => (
             <SwiperSlide>
               <div className="">
-                <div className="bg-linear-to-bl  p-7 py-10 from-primary to-[#4b499d] h-75 rounded-xl">
+                <div className="bg-linear-to-bl  p-7 py-10  from-primary to-[#4b499d] h-75 rounded-xl">
                   <p className="text-gray-200 text-center">{winner.saying}</p>
                 </div>
-                <div className="bg-white p-3 h-60 -m-35 w-100 mx-auto  rounded-2xl shadow-md z-10 ">
+                <div className="bg-base-100 p-3 md:h-60 h-70 -m-35 md:w-100 w-80 mx-auto  rounded-2xl shadow-md z-10 ">
                   <img
                     src={winner.image}
                     alt=""
@@ -118,13 +127,13 @@ const WinnerAdvertise = () => {
                   <h1 className="text-xl text-center font-semibold text-secondary">
                     {winner.name}
                   </h1>
-                  <div className="flex justify-between px-2 pt-2.5 mt-2.5 border-t-2 border-gray-400">
+                  <div className="md:flex justify-between px-2 pt-2.5 mt-2.5 border-t-2 border-gray-400">
                     <p className="text-lg">
                       <span className="font-bold ">Contest : </span>
                       {winner.category}
                     </p>
                     <p className="text-lg">
-                      <span className="font-bold ">Prize Mony : </span>{" "}
+                      <span className="font-bold ">Prize Mony :</span>{" "}
                       {winner.prize}
                     </p>
                   </div>

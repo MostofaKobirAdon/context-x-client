@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import ContestCard from "../components/ContestCard";
@@ -7,7 +7,11 @@ const AllContests = () => {
   const [activeTab, setActiveTab] = useState("all");
   const axiosSecure = useAxiosSecure();
 
-  const { isLoading, data: contests = [] } = useQuery({
+  const {
+    refetch,
+    isLoading,
+    data: contests = [],
+  } = useQuery({
     queryKey: ["all-contests", activeTab],
     queryFn: async () => {
       const url =
@@ -21,7 +25,7 @@ const AllContests = () => {
   return (
     <div>
       <div className="flex flex-col gap-y-10 min-h-[85vh]">
-        <div className="mt-10 text-center">
+        <div data-aos="fade-down" className="mt-10 text-center">
           <h1 className="section-heading">
             Explore All{" "}
             <span className="text-primary font-bold"> Contests</span>
@@ -32,7 +36,7 @@ const AllContests = () => {
           </p>
         </div>
 
-        <div className="tabs tabs-border w-full">
+        <div data-aos="fade-up" className="tabs tabs-border w-full">
           <input
             type="radio"
             name="tabs"

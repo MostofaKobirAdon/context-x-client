@@ -5,8 +5,11 @@ import collaboration from "../assets/collaboration.png";
 const About = () => {
   return (
     <div className="min-h-[85vh] flex flex-col gap-y-10">
-      <div className="flex mt-10 items-center gap-4">
-        <div className="w-1/2 ">
+      <div
+        data-aos="fade-right"
+        className="flex flex-col-reverse md:flex-row mt-10 items-center gap-4"
+      >
+        <div className="md:w-1/2 ">
           <h1 className="section-heading">
             Know <span className="text-primary font-bold">About</span> Us
           </h1>
@@ -22,10 +25,13 @@ const About = () => {
             themselves to grow their skills.
           </p>
         </div>
-        <img src={about} alt="" className=" w-1/2" />
+        <img src={about} alt="" className=" md:w-1/2" />
       </div>
-      <div className="flex mt-10 items-center flex-row-reverse gap-4">
-        <div className="w-1/2 ">
+      <div
+        data-aos="fade-left"
+        className="flex flex-col-reverse mt-10 items-center md:flex-row-reverse gap-4"
+      >
+        <div className="md:w-1/2 ">
           <h1 className="section-heading">
             What <span className="text-primary font-bold">We </span> Do
           </h1>
@@ -41,7 +47,7 @@ const About = () => {
             ideas into competitions and talent into achievement.
           </p>
         </div>
-        <img src={collaboration} alt="" className=" w-1/2" />
+        <img src={collaboration} alt="" className=" md:w-1/2" />
       </div>
     </div>
   );
