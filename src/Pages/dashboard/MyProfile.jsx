@@ -1,73 +1,68 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { FaRegEdit } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import axios from "axios";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const MyProfile = () => {
   const { user, updateUser } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const { data } = useQuery({
+    queryKey: ["user-by-email", user],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users/${user?.email}`);
+      return res.data;
+    },
+  });
   const [showIcon, setShowIcon] = useState(false);
   const moadlRef = useRef();
-  const {
-    register,
-    reset,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const fileInputRef = useRef();
+  const { register, reset, handleSubmit } = useForm({
+    defaultValues: {
+      bio: "",
+      name: "",
+      image: "",
+    },
+  });
   const handleOpenMoadl = () => {
     moadlRef.current.showModal();
   };
+  useEffect(() => {
+    if (data) {
+      reset({
+        bio: data.bio || "",
+        name: user.displayName || data.displayName || "",
+        image:
+          user.photoURL ||
+          data.photoURL ||
+          "https://i.ibb.co.com/G4p6n29q/download.png",
+      });
+    }
+  }, [user, data, reset]);
 
   const handleUpdateProfile = (data) => {
+    moadlRef.current.close();
     const { name, image, bio } = data;
-    const file = image[0];
-
-    const formData = new FormData();
-    formData.append("image", file);
-    axios
-      .post(
-        `https://api.imgbb.com/1/upload?key=${
-          import.meta.env.VITE_IMGBB_APIKEY
-        }`,
-        formData
-      )
+    const updateInfo = { displayName: name, photoURL: image };
+    updateUser(updateInfo)
       .then((res) => {
-        const photoUrl = res.data.data.url;
-        updateUser({ displayName: name, photoURL: photoUrl })
+        axiosSecure
+          .patch(`/users/${user?.email}`, { name, image, bio })
           .then((res) => {
-            axiosSecure
-              .patch("/users", {
-                displayName: name,
-                photoURL: photoUrl,
-              })
-              .then((res) => {
-                Swal.fire({
-                  position: "center",
-                  icon: "success",
-                  title: "Account updated successfully",
-                  showConfirmButton: false,
-                  timer: 1500,
-                });
-                reset();
-              })
-              .catch((err) => {
-                Swal.fire({
-                  position: "center",
-                  icon: "error",
-                  title: `${err.message}`,
-                  showConfirmButton: false,
-                  timer: 1500,
-                });
-              });
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Your Profile has been updated",
+              showConfirmButton: false,
+              timer: 1500,
+            });
           })
           .catch((err) => {
             Swal.fire({
               position: "center",
-              icon: "error",
+              icon: "success",
               title: `${err.message}`,
               showConfirmButton: false,
               timer: 1500,
@@ -104,13 +99,13 @@ const MyProfile = () => {
       </div>
 
       <dialog ref={moadlRef} className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box ">
+        <div className="modal-box">
           <h1 className="text-2xl font-semibold">
             Update Your <span className="text-primary font-bold">Profile</span>
           </h1>
           <form
             onSubmit={handleSubmit(handleUpdateProfile)}
-            className="flex flex-col mt-2"
+            className="flex flex-col mt-1"
           >
             <div className="">
               <div className="relative">
@@ -119,9 +114,9 @@ const MyProfile = () => {
                   alt=""
                   onMouseEnter={() => setShowIcon(true)}
                   onMouseLeave={() => setShowIcon(false)}
-                  className={`w-28 border-2 object-cover overflow-hidden border-primary ${
+                  className={`w-22 border-2 object-cover overflow-hidden border-primary ${
                     showIcon ? "brightness-75" : "brightness-100"
-                  } rounded-full transform h-28`}
+                  } rounded-full transform h-22`}
                 />
                 <FaRegEdit
                   fill="white"
@@ -131,15 +126,6 @@ const MyProfile = () => {
                   } left-20`}
                 />
               </div>
-              <label htmlFor="" className="label">
-                Choose image
-              </label>
-              <input
-                {...register("image")}
-                type="file"
-                ref={fileInputRef}
-                className="file-input w-full"
-              />
             </div>
 
             <label htmlFor="" className="label">
@@ -151,7 +137,16 @@ const MyProfile = () => {
               className="input w-full"
               placeholder="Your Name"
             />
-            <label htmlFor="" className="label mt-2">
+            <label htmlFor="" className="label">
+              Choose image
+            </label>
+            <input
+              {...register("image")}
+              type="text"
+              className="input w-full"
+              placeholder="Photo Url"
+            />
+            <label htmlFor="" className="label mt-1">
               Bio
             </label>
             <textarea
@@ -159,7 +154,7 @@ const MyProfile = () => {
               className="textarea w-full"
               placeholder="Bio"
             ></textarea>
-            <button className="btn btn-primary mt-2">Update</button>
+            <button className="btn btn-primary mt-1">Update</button>
           </form>
           <div className="modal-action">
             <form method="dialog">
