@@ -46,6 +46,7 @@ const ContestDetails = () => {
     deadline,
     description,
     participants,
+    winner,
   } = contest;
   const participantPaid = participants?.find((p) => p.email === user?.email);
   useEffect(() => {
@@ -176,7 +177,7 @@ const ContestDetails = () => {
         </div>
       ) : (
         <div className=" mx-auto">
-          <div className="mt-10 w-full  md:flex gap-10">
+          <div data-aos="fade-up" className="mt-10 w-full  md:flex gap-10">
             <img
               src={image}
               alt=""
@@ -201,21 +202,39 @@ const ContestDetails = () => {
                   renderer={renderer}
                 ></Countdown>
               </div>
+              {winner.email && (
+                <div className="">
+                  <p className="font-semibold text-xl">Winner : </p>
+
+                  <div className="border-2 border-primary flex flex-col justify-center items-center w-50 rounded-lg  ">
+                    <img
+                      src={winner.photoURL}
+                      alt=""
+                      className="rounded-full w-20 mt-2 h-20 border"
+                    />
+                    <div className="">
+                      <p className="text-lg font-medium mt-0.5">
+                        {winner.name}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           <div className="mt-5 pt-4 border-t-2 border-gray-300">
-            <div className="">
+            <div data-aos="fade-up" className="">
               <span className="font-semibold  text-2xl ">Description</span>
               <p className="text-secondary mt-1">{description}</p>
             </div>
-            <div className="mt-4">
+            <div data-aos="fade-up" className="mt-4">
               <span className="font-semibold  text-2xl ">
                 Task Instructions
               </span>
               <p className="text-secondary mt-1">{description}</p>
             </div>
           </div>
-          <div className="flex gap-3 mt-6">
+          <div data-aos="fade-up" className="flex gap-3 mt-6">
             <button
               onClick={handlePay}
               disabled={ended || paid}

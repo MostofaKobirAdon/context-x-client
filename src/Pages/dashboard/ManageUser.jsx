@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdAdminPanelSettings } from "react-icons/md";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
@@ -10,15 +10,18 @@ import Swal from "sweetalert2";
 import { FaRegUser } from "react-icons/fa";
 
 const ManageUser = () => {
+  const [currentPage, setCurrentPage] = useState(0);
   const axiosSecure = useAxiosSecure();
   const {
     isLoading,
     refetch,
-    data: users = [],
+    data: users = { result: [], total: 0 },
   } = useQuery({
-    queryKey: ["user-management"],
+    queryKey: ["user-management", currentPage],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get(
+        `/users?limit=${10}&skip=${currentPage * 10}`
+      );
       return res.data;
     },
   });
@@ -115,6 +118,8 @@ const ManageUser = () => {
       }
     });
   };
+
+  const totalPage = Math.ceil(users.total / 10);
   return (
     <>
       {isLoading ? (
@@ -139,7 +144,7 @@ const ManageUser = () => {
                 </tr>
               </thead>
               <tbody>
-                {users.map((user, index) => (
+                {users.result.map((user, index) => (
                   <tr key={user._id}>
                     <td>{index + 1}</td>
                     <td>
@@ -216,6 +221,38 @@ const ManageUser = () => {
                 ))}
               </tbody>
             </table>
+          </div>
+          <div className="flex justify-center items-center mt-4">
+            <div className="flex just-center items-center gap-2">
+              {currentPage > 0 && (
+                <button
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                  className="btn btn-primary btn-soft btn-sm"
+                >
+                  Prev
+                </button>
+              )}
+
+              {[...Array(totalPage).keys()].map((num) => (
+                <button
+                  onClick={() => setCurrentPage(num)}
+                  key={num}
+                  className={`btn ${
+                    num === currentPage && "bg-primary text-white"
+                  } btn-primary btn-soft btn-sm`}
+                >
+                  {num}
+                </button>
+              ))}
+              {currentPage < totalPage - 1 && (
+                <button
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                  className="btn btn-primary btn-soft btn-sm"
+                >
+                  Next
+                </button>
+              )}
+            </div>
           </div>
         </div>
       )}

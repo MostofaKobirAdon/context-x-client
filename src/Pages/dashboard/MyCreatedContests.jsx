@@ -10,7 +10,11 @@ import { Link } from "react-router";
 const MyCreatedContests = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { isLoading, data: contests = [] } = useQuery({
+  const {
+    isLoading,
+    refetch,
+    data: contests = [],
+  } = useQuery({
     queryKey: ["created-contests", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -68,7 +72,7 @@ const MyCreatedContests = () => {
           </thead>
           <tbody>
             {contests.map((contest, index) => (
-              <tr>
+              <tr key={index}>
                 <th>{index + 1}</th>
                 <td className="font-medium  text-secondary">{contest.name}</td>
                 <td>
@@ -99,16 +103,14 @@ const MyCreatedContests = () => {
                   </button>
                 </td>
                 <td>
-                  <button
-                    disabled={
-                      contest.status !== "approved" || contest.isEnded
-                        ? true
-                        : false
-                    }
-                    className="btn-primary btn btn-sm"
-                  >
-                    See Submissions
-                  </button>
+                  <Link to={`/dashboard/submissions/${contest._id}`}>
+                    <button
+                      disabled={contest.status !== "approved" ? true : false}
+                      className="btn-primary btn btn-sm"
+                    >
+                      See Submissions
+                    </button>
+                  </Link>
                 </td>
               </tr>
             ))}

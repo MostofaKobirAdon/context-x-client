@@ -25,6 +25,9 @@ const Nav = () => {
         <NavLink to={"/faq"}>FAQ</NavLink>
       </li>
       <li className="">
+        <NavLink to={"/leader-board"}>Leader Board</NavLink>
+      </li>
+      <li className="">
         <NavLink to={"/contact"}>Contact</NavLink>
       </li>
     </>
@@ -33,7 +36,7 @@ const Nav = () => {
     logOut()
       .then(() => {
         Swal.fire({
-          position: "ceneter",
+          position: "center",
           icon: "success",
           title: `Logged out successfully`,
           showConfirmButton: false,

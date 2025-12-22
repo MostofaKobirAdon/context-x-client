@@ -24,6 +24,9 @@ import PaymentCancel from "../Pages/dashboard/PaymentCancel";
 import Submissions from "../Pages/dashboard/Submissions";
 import Faq from "../Pages/Faq";
 import Contact from "../Pages/Contact";
+import SubmissionsByContest from "../Pages/dashboard/SubmissionsByContest";
+import WonContest from "../Pages/dashboard/WonContest";
+import LeaderBoard from "../Pages/LeaderBoard";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
+      },
+      {
+        path: "/leader-board",
+        element: <LeaderBoard />,
       },
       {
         path: "/contact",
@@ -113,6 +120,10 @@ const router = createBrowserRouter([
         element: <ParticipatedContests></ParticipatedContests>,
       },
       {
+        path: "won-contests",
+        element: <WonContest />,
+      },
+      {
         path: "manage-users",
         element: (
           <AdminRoute>
@@ -149,6 +160,14 @@ const router = createBrowserRouter([
         element: (
           <CreatorRoute>
             <Submissions></Submissions>
+          </CreatorRoute>
+        ),
+      },
+      {
+        path: "submissions/:contestId",
+        element: (
+          <CreatorRoute>
+            <SubmissionsByContest />
           </CreatorRoute>
         ),
       },

@@ -10,6 +10,7 @@ const Login = () => {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  console.log(location.state);
   const {
     register,
     reset,
@@ -21,7 +22,6 @@ const Login = () => {
   const handleLogin = (data) => {
     setLoading(true);
     const { email, password } = data;
-    console.log("after lgoin", data);
     login(email, password)
       .then((result) => {
         const user = result.user;
@@ -34,7 +34,8 @@ const Login = () => {
           timer: 1500,
         });
         reset();
-        navigate(`${location.state ? location.state : "/"}`);
+        navigate(`${location.state || "/"}`);
+        setLoading(false);
       })
       .catch((err) => {
         Swal.fire({
@@ -43,7 +44,8 @@ const Login = () => {
           title: `${err.message}`,
           showConfirmButton: false,
           timer: 1500,
-        }).finally(() => setLoading(false));
+        });
+        setLoading(false);
       });
   };
   return (

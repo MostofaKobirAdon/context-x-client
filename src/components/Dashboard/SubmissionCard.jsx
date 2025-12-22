@@ -18,6 +18,7 @@ const SubmissionCard = ({ data }) => {
     submittedAt,
     participantName,
     participantEmail,
+    contestIsEnded,
   } = data;
   const modalRef = useRef();
   const handleDeclareWinner = () => {
@@ -31,7 +32,7 @@ const SubmissionCard = ({ data }) => {
       text: `${data.participantName} will be delared as winner`,
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#1280e7ff",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes",
     }).then((result) => {
@@ -56,7 +57,7 @@ const SubmissionCard = ({ data }) => {
     });
   };
   return (
-    <div className="px-2 h-42 py-3 rounded-xl bg-primary/5 hover:scale-101 transform ease-in-out duration-100 hover:shadow-md">
+    <div className="px-2 h-50 md:h-42 py-3 rounded-xl bg-primary/5 hover:scale-101 transform ease-in-out duration-100 hover:shadow-md">
       <h2 className="font-semibold text-lg border-b border-gray-600 mb-1">
         {contestName}
       </h2>
@@ -91,9 +92,20 @@ const SubmissionCard = ({ data }) => {
             </p>
           </div>
           <div className="modal-action">
-            <button onClick={handleDeclareWinner} className="btn btn-primary">
-              Declare as Winner !
-            </button>
+            <div className="">
+              <button
+                disabled={!contestIsEnded}
+                onClick={handleDeclareWinner}
+                className="btn btn-primary"
+              >
+                Declare as Winner !
+              </button>
+              {!contestIsEnded && (
+                <p className="text-xs text-red-600">
+                  the deadline is not over yet
+                </p>
+              )}
+            </div>
             <form method="dialog">
               <button className="btn">Close</button>
             </form>

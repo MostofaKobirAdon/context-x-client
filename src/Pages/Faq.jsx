@@ -68,16 +68,16 @@ const Faq = () => {
             Find answers to common questions about ContestX
           </p>
         </div>
-        <div data-aos="fade-up" className="flex justify-between ">
+        <div data-aos="fade-up" className="lg:flex lg:justify-between ">
           <img
             src={q1}
             alt=""
-            className="w-[43%] object-cover overflow-hidden"
+            className="lg:w-[43%] object-cover overflow-hidden"
           />
           <img
             src={q2}
             alt=""
-            className="w-[43%] object-cover overflow-hidden"
+            className="lg:w-[43%] object-cover overflow-hidden"
           />
         </div>
       </div>

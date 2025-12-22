@@ -7,6 +7,8 @@ import { CgProfile } from "react-icons/cg";
 import { MdFormatListBulleted, MdFormatListBulletedAdd } from "react-icons/md";
 import { FaMoon, FaTasks, FaUserEdit } from "react-icons/fa";
 import useRole from "../hooks/useRole";
+import { GiPodiumWinner } from "react-icons/gi";
+
 import { FiFileText } from "react-icons/fi";
 
 const DashBoardLayout = () => {
@@ -121,20 +123,36 @@ const DashBoardLayout = () => {
               </li>
 
               {role === "user" && (
-                <li>
-                  <NavLink
-                    to={"/dashboard/participated-contests"}
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Participated Contests"
-                  >
-                    {/* Home icon */}
-                    <IoTrophyOutline size={17} />
+                <>
+                  <li>
+                    <NavLink
+                      to={"/dashboard/participated-contests"}
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Participated Contests"
+                    >
+                      {/* Home icon */}
+                      <IoTrophyOutline size={17} />
 
-                    <span className="is-drawer-close:hidden">
-                      Participated Contests
-                    </span>
-                  </NavLink>
-                </li>
+                      <span className="is-drawer-close:hidden">
+                        Participated Contests
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to={"/dashboard/won-contests"}
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Won Contests"
+                    >
+                      {/* Home icon */}
+                      <GiPodiumWinner size={17} />
+
+                      <span className="is-drawer-close:hidden">
+                        Won Contests
+                      </span>
+                    </NavLink>
+                  </li>
+                </>
               )}
               {role === "creator" && (
                 <>

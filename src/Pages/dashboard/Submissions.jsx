@@ -20,11 +20,10 @@ const Submissions = () => {
     <div className="bg-base-200 rounded-xl min-h-[85vh] p-3">
       <div className="text-center mb-4">
         <h1 className="section-heading">
-          All <span className="font-bold text-primary">Submissions</span>{" "}
-          Contests
+          All <span className="font-bold text-primary">Submitted</span> Tasks
         </h1>
       </div>
-      <div className="bg-base-300  rounded-2xl w-11/12 mx-auto shadow-sm gap-6 grid grid-cols-2 p-6">
+      <div className="bg-base-300  rounded-2xl w-11/12 mx-auto shadow-sm gap-6 grid grid-cols-1 md:grid-cols-2 p-6">
         {submissions.map((submission, index) => (
           <SubmissionCard data={submission} key={index} />
         ))}

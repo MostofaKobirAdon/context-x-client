@@ -13,8 +13,8 @@ const Contact = () => {
         </h1>
         <h2 className="subtext">Our dedicatedteam is Here for You!</h2>
       </div>
-      <div data-aos="fade-up" className="flex mt-10 gap-5">
-        <div className="w-1/2">
+      <div data-aos="fade-up" className="md:flex mt-10 gap-5">
+        <div className="lg:w-1/2">
           <p className="text-secondary">
             At ContestX, we want every participant to have a smooth and
             enjoyable experience. Whether you have questions about entering a
@@ -27,14 +27,14 @@ const Contact = () => {
             help us make the platform even better!
           </p>
         </div>
-        <img src={team} alt="" className="w-1/2 h-70 object-cover " />
+        <img src={team} alt="" className="lg:w-1/2 lg:h-70 object-cover " />
       </div>
       <div
         data-aos="fade-up"
-        className="flex flex-row-reverse items-center mt-10"
+        className="md:flex flex-row-reverse items-center mt-10"
       >
-        <div className="card-body w-1/2">
-          <fieldset className="fieldset w-5/6 mx-auto">
+        <div className="card-body lg:w-1/2">
+          <fieldset className="fieldset w-full lg:w-5/6 mx-auto">
             <h1 className="text-3xl font-semibold mb-4">
               Tell{" "}
               <span
@@ -58,7 +58,7 @@ const Contact = () => {
             <button className="btn btn-neutral mt-4">Login</button>
           </fieldset>
         </div>
-        <img src={contact} alt="" className="w-1/2" />
+        <img src={contact} alt="" className="lg:w-1/2" />
       </div>
     </div>
   );
