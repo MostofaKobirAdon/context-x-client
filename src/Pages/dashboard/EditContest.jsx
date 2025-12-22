@@ -97,8 +97,8 @@ const EditContest = () => {
       </h1>
 
       <form onSubmit={handleSubmit(handleEditContest)} className="">
-        <div className="flex gap-10 justify-between max-w-11/12 mx-auto ">
-          <div className="w-1/2 space-y-2.5">
+        <div className="md:flex gap-10 justify-between max-w-11/12 mx-auto ">
+          <div className="md:w-1/2 space-y-2.5">
             {" "}
             <div className="flex flex-col w-full">
               <label className="label font-medium">Contest Name</label>
@@ -159,7 +159,7 @@ const EditContest = () => {
               )}
             </div>
           </div>
-          <div className=" w-1/2 space-y-2.5">
+          <div className=" md:w-1/2 space-y-2.5">
             <div className="flex flex-col w-full">
               <label className="label font-medium">Photo</label>
 

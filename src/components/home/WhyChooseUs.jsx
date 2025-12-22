@@ -17,11 +17,10 @@ const WhyChooseUs = () => {
       </div>
       <div
         data-aos="fade-up"
-        className="grid md:grid-cols-2 gap-8 max-w-9/12 mx-auto"
+        className="grid lg:grid-cols-2 gap-8 max-w-9/12 mx-auto"
       >
         <div className="bg-base-200 rounded-2xl p-4 flex md:flex-row flex-col text-center md:text-left items-center gap-3">
           <div className="">
-            <IoIosLock fill="#4a75ed" size={120} />
           </div>
           <div className="">
             <h1 className="text-2xl font-semibold">Secure & Reliable</h1>

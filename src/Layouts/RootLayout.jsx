@@ -15,7 +15,7 @@ const RootLayout = () => {
       ) : (
         <>
           <Nav></Nav>
-          <div className="max-w-11/12 lg:max-w-6xl mx-auto mt-16 ">
+          <div className="max-w-11/12 md:max-w-[700px] lg:max-w-6xl mx-auto mt-16 ">
             <Outlet />
           </div>
           <Footer></Footer>

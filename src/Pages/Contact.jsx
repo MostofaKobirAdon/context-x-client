@@ -13,7 +13,7 @@ const Contact = () => {
         </h1>
         <h2 className="subtext">Our dedicatedteam is Here for You!</h2>
       </div>
-      <div data-aos="fade-up" className="md:flex mt-10 gap-5">
+      <div data-aos="fade-up" className="lg:flex mt-10 gap-5">
         <div className="lg:w-1/2">
           <p className="text-secondary">
             At ContestX, we want every participant to have a smooth and
@@ -31,7 +31,7 @@ const Contact = () => {
       </div>
       <div
         data-aos="fade-up"
-        className="md:flex flex-row-reverse items-center mt-10"
+        className="lg:flex flex-row-reverse items-center mt-10"
       >
         <div className="card-body lg:w-1/2">
           <fieldset className="fieldset w-full lg:w-5/6 mx-auto">

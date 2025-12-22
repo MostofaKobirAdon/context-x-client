@@ -49,7 +49,7 @@ const Login = () => {
       });
   };
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center">
+    <div className="flex flex-col lg:flex-row items-center justify-center">
       {loading ? (
         <div className="flex justify-center items-center min-h-[80vh]">
           <span className="loading loading-dots loading-xl"></span>
@@ -57,7 +57,7 @@ const Login = () => {
       ) : (
         <>
           <div className="card-body w-full  md:w-1/2">
-            <div className="md:w-4/6 w-full  mx-auto ">
+            <div className="lg:w-4/6 w-full  mx-auto ">
               <h1 className="section-heading">
                 <span className="text-primary font-bold">Welcome</span> Back
               </h1>

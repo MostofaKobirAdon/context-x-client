@@ -1,16 +1,48 @@
-# React + Vite
+# ContestX
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**ContestX** is a modern, user-friendly contest management platform that allows users to create, discover, participate in, and manage creative contests such as design challenges, article writing, business ideas, and more.
 
-Currently, two official plugins are available:
+## 🌐 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[https://contest-x.netlify.app/](https://contest-x.netlify.app/)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Tech Stack
 
-## Expanding the ESLint configuration
+- **Frontend:** React, Tailwind CSS
+- **State Management & Data Fetching:** TanStack Query
+- **Authentication:** Firebase
+- **Payment Integration:** Stripe
+- **Deployment:** Netlify (Client)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## ✨ Features
+
+- ✅ Fully responsive design (mobile, tablet, desktop)
+- ✅ Secure authentication with Firebase (Email/Password + Google Sign-In)
+- ✅ Role-based dashboards: Admin, Contest Creator, Normal User
+- ✅ Contest browsing with search by contest type
+- ✅ Contest participation with Stripe payment integration
+- ✅ Private routes with JWT-based security
+- ✅ Dashboard for users to view participated and winning contests
+- ✅ Contest creators can add, edit, delete contests and declare winners
+- ✅ Admin can approve/reject contests and manage user roles
+- ✅ Live deadline countdown on contest details page
+- ✅ Sweet alerts and toast notifications for all CRUD actions
+- ✅ Extra Pages: **FAQ** and **Contact**
+- ✅ Dark/Light theme toggle (saved in localStorage)
+
+---
+
+## 📂 Pages Overview
+
+- **Home Page:** Banner with search, popular contests, winners section
+- **All Contests:** Filter contests by type
+- **Contest Details:** Register, pay, and submit tasks
+- **User Dashboard:** Participated contests, winning contests, profile
+- **Creator Dashboard:** Add contests, manage submissions
+- **Admin Dashboard:** Manage users and contests
+- **Leaderboard:** Dynamic ranking by contest wins
+- **FAQ & Contact Pages**

@@ -106,7 +106,7 @@ const WinnerAdvertise = () => {
             },
 
             768: {
-              slidesPerView: 2,
+              slidesPerView: 1.5,
               centeredSlides: true,
             },
           }}

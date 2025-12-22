@@ -57,7 +57,7 @@ const SubmissionCard = ({ data }) => {
     });
   };
   return (
-    <div className="px-2 h-50 md:h-42 py-3 rounded-xl bg-primary/5 hover:scale-101 transform ease-in-out duration-100 hover:shadow-md">
+    <div className="px-2 h-50 lg::h-42 py-3 rounded-xl bg-primary/5 hover:scale-101 transform ease-in-out duration-100 hover:shadow-md">
       <h2 className="font-semibold text-lg border-b border-gray-600 mb-1">
         {contestName}
       </h2>

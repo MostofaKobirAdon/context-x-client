@@ -6,6 +6,8 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { Cell, Pie, PieChart, Tooltip } from "recharts";
+import useWinPercentage from "../../hooks/useWinPercentage";
 
 const MyProfile = () => {
   const { user, updateUser } = useAuth();
@@ -79,91 +81,135 @@ const MyProfile = () => {
         });
       });
   };
-  return (
-    <div className="bg-base-200 rounded-xl min-h-[85vh] p-3">
-      <div className="flex flex-col items-center ">
-        <div className="h-40 bg-linear-to-bl from-primary/70 to-purple-500/50 w-full rounded-t-xl"></div>
-        <img
-          src={user.photoURL}
-          alt=""
-          className="w-43 h-43 rounded-full -mt-20 object-cover overflow-hidden border-8 border-white "
-        />
-      </div>
-      <div className="flex justify-center items-center">
-        <button
-          onClick={handleOpenMoadl}
-          className="btn btn-outline btn-primary w-45 mt-8"
-        >
-          Update Profile{" "}
-        </button>
-      </div>
 
-      <dialog ref={moadlRef} className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
-          <h1 className="text-2xl font-semibold">
-            Update Your <span className="text-primary font-bold">Profile</span>
-          </h1>
-          <form
-            onSubmit={handleSubmit(handleUpdateProfile)}
-            className="flex flex-col mt-1"
-          >
+  const { winData, isLoading } = useWinPercentage();
+  const chartData = [
+    { name: "Participated", value: 100 - winData?.winPercentage },
+    { name: "Won", value: winData?.winPercentage },
+  ];
+  return (
+    <>
+      {" "}
+      {isLoading ? (
+        <div className="bg-base-200 flex justify-center items-center rounded-xl min-h-[80vh] p-3">
+          <span className="loading loading-dots loading-xl"></span>
+        </div>
+      ) : (
+        <div className="bg-base-200 rounded-xl min-h-[85vh] p-3">
+          <div className="flex flex-col items-center ">
+            <div className="h-40 bg-linear-to-bl from-primary/70 to-purple-500/50 w-full rounded-t-xl"></div>
+            <img
+              src={user.photoURL}
+              alt=""
+              className="w-43 h-43 rounded-full -mt-20 object-cover overflow-hidden border-8 border-white "
+            />
+          </div>
+          <div className="flex justify-center items-center">
+            <button
+              onClick={handleOpenMoadl}
+              className="btn btn-outline btn-primary w-45 mt-8"
+            >
+              Update Profile{" "}
+            </button>
+          </div>
+          <div className=" flex justify-center  items center">
             <div className="">
-              <div className="relative">
-                <img
-                  src={user.photoURL}
-                  alt=""
-                  onMouseEnter={() => setShowIcon(true)}
-                  onMouseLeave={() => setShowIcon(false)}
-                  className={`w-22 border-2 object-cover overflow-hidden border-primary ${
-                    showIcon ? "brightness-75" : "brightness-100"
-                  } rounded-full transform h-22`}
+              <PieChart width={400} height={120}>
+                <Pie
+                  data={chartData}
+                  dataKey="value"
+                  startAngle={180}
+                  endAngle={0}
+                  cx="50%"
+                  cy="100%"
+                  outerRadius={80}
+                  fill="#8884d8"
+                  label
+                >
+                  {chartData.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={index === 0 ? "#c0c4e8ff" : "#4c46e9ff"}
+                    />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+              <p className="text-lg text-center font-semibold">
+                Winning Percentage
+              </p>
+            </div>
+          </div>
+
+          <dialog ref={moadlRef} className="modal modal-bottom sm:modal-middle">
+            <div className="modal-box">
+              <h1 className="text-2xl font-semibold">
+                Update Your{" "}
+                <span className="text-primary font-bold">Profile</span>
+              </h1>
+              <form
+                onSubmit={handleSubmit(handleUpdateProfile)}
+                className="flex flex-col mt-1"
+              >
+                <div className="">
+                  <div className="relative">
+                    <img
+                      src={user.photoURL}
+                      alt=""
+                      onMouseEnter={() => setShowIcon(true)}
+                      onMouseLeave={() => setShowIcon(false)}
+                      className={`w-22 border-2 object-cover overflow-hidden border-primary ${
+                        showIcon ? "brightness-75" : "brightness-100"
+                      } rounded-full transform h-22`}
+                    />
+                    <FaRegEdit
+                      fill="white"
+                      size={20}
+                      className={`absolute bottom-4 ${
+                        showIcon ? "block" : "hidden"
+                      } left-20`}
+                    />
+                  </div>
+                </div>
+
+                <label htmlFor="" className="label">
+                  Name
+                </label>
+                <input
+                  {...register("name")}
+                  type="text"
+                  className="input w-full"
+                  placeholder="Your Name"
                 />
-                <FaRegEdit
-                  fill="white"
-                  size={20}
-                  className={`absolute bottom-4 ${
-                    showIcon ? "block" : "hidden"
-                  } left-20`}
+                <label htmlFor="" className="label">
+                  Choose image
+                </label>
+                <input
+                  {...register("image")}
+                  type="text"
+                  className="input w-full"
+                  placeholder="Photo Url"
                 />
+                <label htmlFor="" className="label mt-1">
+                  Bio
+                </label>
+                <textarea
+                  {...register("bio")}
+                  className="textarea w-full"
+                  placeholder="Bio"
+                ></textarea>
+                <button className="btn btn-primary mt-1">Update</button>
+              </form>
+              <div className="modal-action">
+                <form method="dialog">
+                  <button className="btn">Close</button>
+                </form>
               </div>
             </div>
-
-            <label htmlFor="" className="label">
-              Name
-            </label>
-            <input
-              {...register("name")}
-              type="text"
-              className="input w-full"
-              placeholder="Your Name"
-            />
-            <label htmlFor="" className="label">
-              Choose image
-            </label>
-            <input
-              {...register("image")}
-              type="text"
-              className="input w-full"
-              placeholder="Photo Url"
-            />
-            <label htmlFor="" className="label mt-1">
-              Bio
-            </label>
-            <textarea
-              {...register("bio")}
-              className="textarea w-full"
-              placeholder="Bio"
-            ></textarea>
-            <button className="btn btn-primary mt-1">Update</button>
-          </form>
-          <div className="modal-action">
-            <form method="dialog">
-              <button className="btn">Close</button>
-            </form>
-          </div>
+          </dialog>
         </div>
-      </dialog>
-    </div>
+      )}
+    </>
   );
 };
 

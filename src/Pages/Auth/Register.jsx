@@ -101,7 +101,7 @@ const Register = () => {
       .finally(() => setLoading(false));
   };
   return (
-    <div className="flex md:flex-row flex-col items-center justify-center">
+    <div className="flex lg::flex-row flex-col items-center justify-center">
       {loading ? (
         <div className="flex justify-center items-center min-h-[80vh]">
           <span className="loading loading-dots loading-xl"></span>
@@ -109,7 +109,7 @@ const Register = () => {
       ) : (
         <>
           <div className="card-body w-full  md:w-1/2">
-            <div className="md:w-4/6 w-full mx-auto ">
+            <div className="lg::w-4/6 w-full mx-auto ">
               <h1 className="section-heading">
                 Create an{" "}
                 <span className="text-primary font-bold">Account</span>
