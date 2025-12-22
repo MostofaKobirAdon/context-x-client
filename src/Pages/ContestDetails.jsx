@@ -202,7 +202,7 @@ const ContestDetails = () => {
                   renderer={renderer}
                 ></Countdown>
               </div>
-              {winner.email && (
+              {winner?.email && (
                 <div className="">
                   <p className="font-semibold text-xl">Winner : </p>
 
