@@ -22,7 +22,7 @@ const LeaderBoard = () => {
           <div className="text-center">
             <h1 className="section-heading mt-4">Leaderboard</h1>
             <p className="subtext">
-              Meet the highest scorers and see how you rank among the best.
+              Meet the highest scorers. see how you rank among the best.
             </p>
           </div>
           <div data-aos="fade-up" className="overflow-x-auto w-full ">
